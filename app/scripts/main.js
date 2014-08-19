@@ -5,7 +5,8 @@ var Grid = function(props) {
     this.element  = this._createElement();
     this._gl      = this._getContext();
 
-    this._initGL(this._generateBaseGridVertices());
+    //this._initGL(this._generateBaseGridVertices());
+    this._initGL(this._quadVertices());
     this._setSize()
 
     this._draw();
@@ -86,6 +87,14 @@ Grid.prototype = {
         return this.element.getContext('webgl');
     },
 
+    _quadVertices : function() {
+        return new Float32Array ([
+             1.0,  1.0,
+            -1.0,  1.0,
+             1.0, -1.0,
+            -1.0, -1.0]);
+    },
+
     _generateBaseGridVertices : function() {
         var numRows = 100;
         var numCols = 100;
@@ -125,7 +134,7 @@ Grid.prototype = {
         this._shaderProgram = this._loadShaders();
         this._uniforms = this._getUniforms(this._shaderProgram);
         this._attributes = this._getAttributes(this._shaderProgram);
-        console.log(this._attributes)
+
         this._vertexBuffer = this._loadVertexBuffer(gridVertices);
         this._bind();
     },
@@ -136,13 +145,15 @@ Grid.prototype = {
         var fragSource = [
             'precision mediump float;',
             'uniform   float uAlpha;',
+            'uniform   vec2 uScale;',
+
             'uniform   vec4 uLineColor;',
 
             'void main(void) {',
             '  gl_FragColor = uLineColor;',
             '  gl_FragColor.a *= uAlpha;',
-            ' int evenRow = int(mod(gl_FragCoord.y / 15.0, 2.0));',
-            '  if( int(mod(gl_FragCoord.x / 15.0, 2.0)) == evenRow ){',
+            '  int evenRow = int(mod(gl_FragCoord.y / uScale.y, 2.0));',
+            '  if( int(mod(gl_FragCoord.x / uScale.y, 2.0)) == evenRow ){',
             '    gl_FragColor = vec4(1.0,0.0,0.0,1.0);',
             '  }',
             '  else{',
@@ -153,10 +164,10 @@ Grid.prototype = {
 
         var vertSource = [
             'attribute vec2 aXY;',
-            'uniform   vec2 uScale;',
+            //'uniform   vec2 uScale;',
             'uniform   vec2 uOffset;',
             'void main(void) {',
-            '   gl_Position = vec4((aXY * uScale) + uOffset, 0, 1.0);',
+            '   gl_Position = vec4(aXY, 0, 1.0);',
             '}'
         ].join('\n');
 
@@ -231,17 +242,17 @@ Grid.prototype = {
         var gl = this._gl;
         gl.clearColor(1,1,1,1);
         gl.clear(gl.COLOR_BUFFER_BIT);
-        gl.drawArrays(gl.LINES, 0, 400);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
 
 }
 
 var props = {
-    width:800,
-    height:800,
-    cellWidth:2,
-    cellHeight:2,
-    lineColor: [0,0,0,1],
+    width:50,
+    height:50,
+    cellWidth:10,
+    cellHeight:10,
+    lineColor: [1,1,0,1],
     divisionColor: [1,0,0,1],
     alpha:.2,
     offsetX:1,
