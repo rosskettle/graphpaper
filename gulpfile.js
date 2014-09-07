@@ -1,5 +1,3 @@
-
-
 var gulp       = require('gulp');
 var uglify     = require('gulp-uglify');
 var concat     = require('gulp-concat');
@@ -22,8 +20,6 @@ gulp.task('connect', function() {
     root: './examples',
     livereload: true
   });
-
-
 });
 
 gulp.task('lint', function() {
@@ -33,12 +29,9 @@ gulp.task('lint', function() {
 });
 
 gulp.task('html', function () {
-
   gulp.src('./examples/index.html')
     .pipe(connect.reload())
 });
-
-
 
 gulp.task('watch', function () {
   gulp.watch(['./src/*.js'], ['build','html']);

@@ -7,12 +7,12 @@ var Grid = function(userProps) {
     id          : 'grid',
     width       : 600,
     height      : 800,
-    cellWidth   : 10,
-    cellHeight  : 10,
-    minorColor  : [0.0, 0.4, 1, 0.2],
-    majorColor  : [0.0, 0.4, 1, 0.5],
-    majorRows   : 5,
-    majorCols   : 5,
+    cellWidth   : 3,
+    cellHeight  : 3,
+    minorColor  : [0, 1, 0.0, 0.2],
+    majorColor  : [0, 1, 0.0, 0.6],
+    majorRows   : 12,
+    majorCols   : 12,
     alpha       : 1,
     offsetX     : 0,
     offsetY     : 0
@@ -243,3 +243,6 @@ Grid.prototype = {
   },
 
 };
+
+
+module.exports = Grid
