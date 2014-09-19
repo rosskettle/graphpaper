@@ -1,14 +1,14 @@
 {
   "name": "graphpaper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A client side package for creating a graphpaper style grid using WebGL.",
   "main": "./src/graphpaper.js",
   "author": "Ross Kettle",
   "license": "MIT",
-  "repository" :
-    { "type" : "git",
-      "url"  : "https://github.com/rosskettle/graphpaper"
-    },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rosskettle/graphpaper"
+  },
   "devDependencies": {
     "gulp": "^3.8.7",
     "gulp-clean": "^0.3.1",
