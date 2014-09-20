@@ -4,13 +4,12 @@ var Grid = function(userProps) {
   }
 
   this._props = {
-    id          : 'grid',
     width       : 601,
     height      : 801,
     cellWidth   : 10,
     cellHeight  : 10,
-    minorColor  : [0, 1, 0.0, 0.2],
-    majorColor  : [0, 1, 0.0, 0.6],
+    minorColor  : [0.0, 1.0, 0.0, 0.2],
+    majorColor  : [0.0, 1.0, 0.0, 0.6],
     majorRows   : 10,
     majorCols   : 10,
     alpha       : 1,
@@ -26,7 +25,7 @@ var Grid = function(userProps) {
     }
   }
 
-  this.element = this._createElement(this._props.id);
+  this.element = this._createElement();
   this._gl = this._getContext();
 
   this._initGL(this._quadVertices());
@@ -122,9 +121,8 @@ Grid.prototype = {
     this._gl.uniform2fv(this._uniforms.uMajor, major);
   },
 
-  _createElement: function(id) {
+  _createElement: function() {
     var el = document.createElement('canvas');
-    el.id = id
     return el
 
   },

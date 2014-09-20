@@ -4,11 +4,10 @@
         <meta charset="utf-8">
         <title>graphpaper</title>
     </head>
-    <body style="height:100%;overflow:hidden">
+    <body>
         <script src="graphpaper.js"></script>
         <script>
           var grid = new Grid();
-          grid.setProps({cellWidth:4,cellHeight:4})
           document.body.appendChild(grid.element);
 
           /*var tick = function() {
@@ -56,13 +55,20 @@
           }
 
           zoom = 10
-          grid.element.onmousewheel = function (event) {
-            console.log('fsfds')
-            console.log(event.deltaX)
-            zoom += event.deltaX/10;
-            grid.setProps({cellWidth:Math.floor(zoom),cellHeight:Math.floor(zoom)});
+          document.body.onkeydown = function (event) {
+            console.log(event.which)
+            if (event.which === 187) {
+              zoom += 1;
+            }
+            if (event.which === 189)
+              zoom = Math.max(1,zoom - 1);
+            if (event.which === 48)
+              zoom = 10;
+            grid.setProps({cellWidth:zoom,cellHeight:zoom,offsetX:0,offsetY:0});
 
           }
+
+
 
           window.requestAnimationFrame(tick)
 
