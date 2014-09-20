@@ -5,17 +5,17 @@ var Grid = function(userProps) {
 
   this._props = {
     id          : 'grid',
-    width       : 600,
-    height      : 800,
-    cellWidth   : 13,
-    cellHeight  : 13,
+    width       : 601,
+    height      : 801,
+    cellWidth   : 10,
+    cellHeight  : 10,
     minorColor  : [0, 1, 0.0, 0.2],
     majorColor  : [0, 1, 0.0, 0.6],
-    majorRows   : 12,
-    majorCols   : 12,
+    majorRows   : 10,
+    majorCols   : 10,
     alpha       : 1,
-    offsetX     : 10,
-    offsetY     : 1
+    offsetX     : 5,
+    offsetY     : 5
   }
 
   if (userProps) {
@@ -91,6 +91,8 @@ Grid.prototype = {
     this.element.setAttribute('width', this._props.width);
     this.element.setAttribute('height', this._props.height);
     this._gl.viewport(0, 0, this._props.width, this._props.height);
+    this._gl.uniform2f(this._uniforms.uResolution, this._props.width, this._props.height);
+    this._setResolution();
   },
 
   _setMinor: function() {
@@ -100,6 +102,10 @@ Grid.prototype = {
 
   _setOffset: function() {
     this._gl.uniform2f(this._uniforms.uOffset, this._props.offsetX, this._props.offsetY);
+  },
+
+  _setResolution: function() {
+    this._gl.uniform2f(this._uniforms.uResolution, this._props.width, this._props.height);
   },
 
   _setAlpha: function() {
@@ -154,13 +160,16 @@ Grid.prototype = {
       'uniform vec4 uMinorColor;',
       'uniform vec4 uMajorColor;',
       'uniform vec2 uOffset;',
+      'uniform vec2 uResolution;',
 
       'void main(void) {',
-      '  offsetCoord = gl_FragCoord + uOffset;',
-      '  if ((int(mod(gl_FragCoord.x, uMinor.x)) != 0) && (int(mod(gl_FragCoord.y, uMinor.y)) != 0)) {',
+      '  vec2 offsetCoord;',
+      '  offsetCoord.x = gl_FragCoord.x - uOffset.x;',
+      '  offsetCoord.y = uResolution.y - gl_FragCoord.y - uOffset.y;',
+      '  if ((int(mod(offsetCoord.x, uMinor.x)) != 0) && (int(mod(offsetCoord.y, uMinor.y)) != 0)) {',
       '    discard;',
       '  } else {',
-      '    if ((int(mod(gl_FragCoord.x, uMajor.x)) != 0) && (int(mod(gl_FragCoord.y, uMajor.y)) != 0)) {',
+      '    if ((int(mod(offsetCoord.x, uMajor.x)) != 0) && (int(mod(offsetCoord.y, uMajor.y)) != 0)) {',
       '      gl_FragColor = uMinorColor;',
       '    }  else {',
       '      gl_FragColor = uMajorColor;',
@@ -213,7 +222,8 @@ Grid.prototype = {
       uMajorColor: this._gl.getUniformLocation(shaderProgram, 'uMajorColor'),
       uMajor: this._gl.getUniformLocation(shaderProgram, 'uMajor'),
       uMinor: this._gl.getUniformLocation(shaderProgram, 'uMinor'),
-      uOffset: this._gl.getUniformLocation(shaderProgram, 'uOffset')
+      uOffset: this._gl.getUniformLocation(shaderProgram, 'uOffset'),
+      uResolution: this._gl.getUniformLocation(shaderProgram, 'uResolution')
     };
   },
 
@@ -241,6 +251,7 @@ Grid.prototype = {
     this._setAlpha();
     this._setLineColors();
     this._setOffset();
+    this._setResolution();
   },
 
 };

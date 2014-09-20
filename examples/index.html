@@ -4,10 +4,68 @@
         <meta charset="utf-8">
         <title>graphpaper</title>
     </head>
-    <body>
+    <body style="height:100%;overflow:hidden">
         <script src="graphpaper.js"></script>
         <script>
-          document.body.appendChild(new Grid().element);
+          var grid = new Grid();
+          grid.setProps({cellWidth:4,cellHeight:4})
+          document.body.appendChild(grid.element);
+
+          /*var tick = function() {
+
+            grid.setProps({offsetX:offset++,offsetY:offset});
+            window.requestAnimationFrame(tick);
+          }*/
+
+          var offset = {x:0,y:0};
+
+          var lastMousePosition = {x:0,y:0};
+          var mouseDown = false;
+
+          var saveLastMousePosition = function (x,y) {
+            lastMousePosition.x = x;
+            lastMousePosition.y = y;
+          }
+
+
+          grid.element.onmousedown = function (event) {
+            console.log('down')
+            grid.element.setAttribute('style','cursor:move');
+            mouseDown = true;
+            saveLastMousePosition(event.clientX, event.clientY)
+          }
+
+          grid.element.onmouseup = function (event) {
+            grid.element.setAttribute('style','-webkit-cursor:pointer');
+
+            mouseDown = false;
+            console.log('up')
+          }
+
+          grid.element.onmousemove = function (event) {
+            if (mouseDown) {
+              var delta = {
+                x: event.clientX - lastMousePosition.x,
+                y: event.clientY - lastMousePosition.y
+              };
+              offset.x += delta.x;
+              offset.y += delta.y;
+              grid.setProps({offsetX:offset.x,offsetY:offset.y});
+              saveLastMousePosition(event.clientX, event.clientY);
+            }
+          }
+
+          zoom = 10
+          grid.element.onmousewheel = function (event) {
+            console.log('fsfds')
+            console.log(event.deltaX)
+            zoom += event.deltaX/10;
+            grid.setProps({cellWidth:Math.floor(zoom),cellHeight:Math.floor(zoom)});
+
+          }
+
+          window.requestAnimationFrame(tick)
+
         </script>
 </body>
 </html>
