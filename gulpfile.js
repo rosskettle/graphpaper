@@ -1,18 +1,25 @@
-var gulp       = require('gulp');
-var uglify     = require('gulp-uglify');
-var concat     = require('gulp-concat');
-var httpServer = require('http-server');
-var connect    = require('gulp-connect');
-var open       = require('gulp-open');
-var jshint     = require('gulp-jshint');
-var stylish    = require('jshint-stylish');
+var gulp        = require('gulp');
+var taskListing = require('gulp-task-listing');
+var uglify      = require('gulp-uglify');
+var concat      = require('gulp-concat');
+var httpServer  = require('http-server');
+var connect     = require('gulp-connect');
+var open        = require('gulp-open');
+var jshint      = require('gulp-jshint');
+var stylish     = require('jshint-stylish');
 
-gulp.task('build', function() {
+gulp.task('help', taskListing);
+
+gulp.task('build', ['copy'], function() {
     return gulp.src('./src/*.js')
         .pipe(uglify())
         .pipe(concat('graphpaper.min.js'))
         .pipe(gulp.dest('./dist'))
-        .pipe(gulp.dest('./examples'))
+});
+
+gulp.task('copy', function(){
+  gulp.src('./src/graphpaper.js')
+    .pipe(gulp.dest('./examples'));
 });
 
 gulp.task('connect', function() {
