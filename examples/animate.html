@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>graphpaper</title>
+    </head>
+    <body>
+        <script src="graphpaper.js"></script>
+        <script>
+          var props = {
+            width:      401,
+            height:     401,
+            cellWidth:  1,
+            cellHeight: 1,
+            majorRows:  5,
+            majorCols:  5,
+            majorColor: [0,.2,.5,.5],
+            minorColor: [0,.2,.5,.3]
+          }
+
+          var grid = new Grid(props);
+
+          document.body.appendChild(grid.element);
+
+          var offset = 0;
+          var size = 1;
+          var tick = function() {
+            offset += 1;
+            size += 1;
+            grid.setProps({offsetX: offset, offsetY: offset, cellWidth: size, cellHeight: size});
+            window.requestAnimationFrame(tick);
+          }
+          tick();
+
+
+        </script>
+</body>
+</html>

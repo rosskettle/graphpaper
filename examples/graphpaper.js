@@ -13,8 +13,8 @@ var Grid = function(userProps) {
     majorRows   : 10,
     majorCols   : 10,
     alpha       : 1,
-    offsetX     : 5,
-    offsetY     : 5
+    offsetX     : 0,
+    offsetY     : 0
   }
 
   if (userProps) {
@@ -124,7 +124,6 @@ Grid.prototype = {
   _createElement: function() {
     var el = document.createElement('canvas');
     return el
-
   },
 
   _getContext: function() {
@@ -210,7 +209,6 @@ Grid.prototype = {
 
     gl.useProgram(shaderProgram);
     return shaderProgram;
-
   },
 
   _getUniforms: function(shaderProgram) {
@@ -250,6 +248,10 @@ Grid.prototype = {
     this._setLineColors();
     this._setOffset();
     this._setResolution();
-  },
+  }
 
 };
+
+if(typeof module !== 'undefined'){
+    module.exports = Grid;
+}

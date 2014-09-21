@@ -5,73 +5,9 @@
         <title>graphpaper</title>
     </head>
     <body>
-        <script src="graphpaper.js"></script>
-        <script>
-          var grid = new Grid();
-          document.body.appendChild(grid.element);
-
-          /*var tick = function() {
-
-            grid.setProps({offsetX:offset++,offsetY:offset});
-            window.requestAnimationFrame(tick);
-          }*/
-
-          var offset = {x:0,y:0};
-
-          var lastMousePosition = {x:0,y:0};
-          var mouseDown = false;
-
-          var saveLastMousePosition = function (x,y) {
-            lastMousePosition.x = x;
-            lastMousePosition.y = y;
-          }
-
-
-          grid.element.onmousedown = function (event) {
-            console.log('down')
-            grid.element.setAttribute('style','cursor:move');
-            mouseDown = true;
-            saveLastMousePosition(event.clientX, event.clientY)
-          }
-
-          grid.element.onmouseup = function (event) {
-            grid.element.setAttribute('style','-webkit-cursor:pointer');
-
-            mouseDown = false;
-            console.log('up')
-          }
-
-          grid.element.onmousemove = function (event) {
-            if (mouseDown) {
-              var delta = {
-                x: event.clientX - lastMousePosition.x,
-                y: event.clientY - lastMousePosition.y
-              };
-              offset.x += delta.x;
-              offset.y += delta.y;
-              grid.setProps({offsetX:offset.x,offsetY:offset.y});
-              saveLastMousePosition(event.clientX, event.clientY);
-            }
-          }
-
-          zoom = 10
-          document.body.onkeydown = function (event) {
-            console.log(event.which)
-            if (event.which === 187) {
-              zoom += 1;
-            }
-            if (event.which === 189)
-              zoom = Math.max(1,zoom - 1);
-            if (event.which === 48)
-              zoom = 10;
-            grid.setProps({cellWidth:zoom,cellHeight:zoom,offsetX:0,offsetY:0});
-
-          }
-
-
-
-          window.requestAnimationFrame(tick)
-
-        </script>
+      <script src="graphpaper.js"></script>
+      <script>
+        document.body.appendChild(new Grid().element);
+      </script>
 </body>
 </html>
