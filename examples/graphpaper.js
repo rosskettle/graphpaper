@@ -1,6 +1,6 @@
-var Grid = function(userProps) {
-  if (!(this instanceof Grid)){
-    return new Grid(userProps);
+var Graphpaper = function(userProps) {
+  if (!(this instanceof Graphpaper)){
+    return new Graphpaper(userProps);
   }
 
   this._props = {
@@ -33,7 +33,7 @@ var Grid = function(userProps) {
   this.draw();
 };
 
-Grid.prototype = {
+Graphpaper.prototype = {
 
   draw: function() {
     var gl = this._gl;
@@ -253,5 +253,5 @@ Grid.prototype = {
 };
 
 if(typeof module !== 'undefined'){
-    module.exports = Grid;
+    module.exports = Graphpaper;
 }

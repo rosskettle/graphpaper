@@ -8,9 +8,9 @@ Include the script
 
     <script src="graphpaper.min.js"></script>
 
-Create a grid and attach it to the DOM
+Create a graphpaper and attach it to the DOM
     
-    document.body.appendChild(new Grid().element);
+    document.body.appendChild(new Graphpaper().element);
 
 ![Graphpaper](http://rosskettle.github.io/img/graphpaper1.png "Graphpaper")
 
@@ -22,25 +22,25 @@ Create a grid and attach it to the DOM
 
 ##Usage
 
-The constuctor returns a new Grid object. Using `new` is optional.
+The constuctor returns a new Graphpaper object. Using `new` is optional.
 
-    var grid = new Grid();
+    var graphpaper = new Graphpaper();
 
-The object has an `element` property that references a DOM canvas element on which the grid is rendered. 
+The object has an `element` property that references a DOM canvas element on which the graphpaper is rendered. 
 
 The constructor accepts a properties object. Each property will override the default property value.
 
-    var grid = new Grid({cellWidth: 5, cellHeight, 5});
+    var graphpaper = new Graphpaper({cellWidth: 5, cellHeight, 5});
 
-To change properties after the grid has been created you can use the `setProps` function.
+To change properties after the graphpaper has been created you can use the `setProps` function.
 
-    grid.setProps({offsetX: 4, offsetY: 4});
+    graphpaper.setProps({offsetX: 4, offsetY: 4});
 
-Changing a property using the `setProps` function will cause the grid to re-render. The
+Changing a property using the `setProps` function will cause the graphpaper to re-render. The
 
-The grid can be forced to re-render at any time using `draw`. However this isn't necessary with normal usage.
+The graphpaper can be forced to re-render at any time using `draw`. However this isn't necessary with normal usage.
 
-    grid.draw(); 
+    graphpaper.draw(); 
 
 ### Properties
 

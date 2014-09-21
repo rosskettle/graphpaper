@@ -18,16 +18,16 @@
             minorColor: [0,.2,.5,.3]
           }
 
-          var grid = new Grid(props);
+          var graphpaper = new Graphpaper(props);
 
-          document.body.appendChild(grid.element);
+          document.body.appendChild(graphpaper.element);
 
           var offset = 0;
           var size = 1;
           var tick = function() {
             offset += 1;
             size += 1;
-            grid.setProps({offsetX: offset, offsetY: offset, cellWidth: size, cellHeight: size});
+            graphpaper.setProps({offsetX: offset, offsetY: offset, cellWidth: size, cellHeight: size});
             window.requestAnimationFrame(tick);
           }
           tick();

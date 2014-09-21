@@ -8,8 +8,8 @@
 
         <script src="graphpaper.js"></script>
         <script>
-          var grid = new Grid();
-          document.body.appendChild(grid.element);
+          var graphpaper = new Graphpaper();
+          document.body.appendChild(graphpaper.element);
 
           var offset = {x:0,y:0};
           var zoom = 10;
@@ -22,18 +22,18 @@
             lastMousePosition.y = y;
           }
 
-          grid.element.onmousedown = function (event) {
-            grid.element.setAttribute('style','cursor:move');
+          graphpaper.element.onmousedown = function (event) {
+            graphpaper.element.setAttribute('style','cursor:move');
             mouseDown = true;
             saveLastMousePosition(event.clientX, event.clientY)
           }
 
-          grid.element.onmouseup = function (event) {
-            grid.element.setAttribute('style','-webkit-cursor:pointer');
+          graphpaper.element.onmouseup = function (event) {
+            graphpaper.element.setAttribute('style','-webkit-cursor:pointer');
             mouseDown = false;
           }
 
-          grid.element.onmousemove = function (event) {
+          graphpaper.element.onmousemove = function (event) {
             if (mouseDown) {
               var delta = {
                 x: event.clientX - lastMousePosition.x,
@@ -41,7 +41,7 @@
               };
               offset.x += delta.x;
               offset.y += delta.y;
-              grid.setProps({offsetX:offset.x,offsetY:offset.y});
+              graphpaper.setProps({offsetX:offset.x,offsetY:offset.y});
               saveLastMousePosition(event.clientX, event.clientY);
             }
           }
