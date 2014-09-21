@@ -14,6 +14,10 @@ Create a graphpaper and attach it to the DOM
 
 ![Graphpaper](http://rosskettle.github.io/img/graphpaper1.png "Graphpaper")
 
+Alternatively, use the npm package, along with something like [Browserify](http://browserify.org/).
+
+    npm install graphpaper --save
+
 ##Examples
 
 [Basic](http://rosskettle.github.io/graphpaper/examples/index.html)  
