@@ -24,13 +24,15 @@ var Graphpaper = function(userProps) {
         this._props[userProp] = userProps[userProp];
       }
     }
+
   }
 
-  if (this._props.hasOwnProperty('canvasElement')) {
-    this.element = this._props.canvasElement;
-  } else {
+  if (this._props.canvasElement === null)
     this.element = this._createElement();
-  }
+  else
+    this.element = this._props.canvasElement;
+
+
 
   this._gl = this._getContext();
 
@@ -43,7 +45,7 @@ Graphpaper.prototype = {
 
   draw: function() {
     var gl = this._gl;
-    gl.clearColor(1, 1, 1, 1);
+    gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   },
