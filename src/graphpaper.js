@@ -25,7 +25,7 @@ var Graphpaper = function(userProps) {
     }
   }
 
-  if (this._props.hasOwnProperty('canvasElement') {
+  if (this._props.hasOwnProperty('canvasElement')) {
     this.element = this._props.canvasElement;
   } else {
     this.element = this._createElement();
