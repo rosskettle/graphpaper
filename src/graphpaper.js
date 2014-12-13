@@ -14,7 +14,8 @@ var Graphpaper = function(userProps) {
     majorCols   : 10,
     alpha       : 1,
     offsetX     : 0,
-    offsetY     : 0
+    offsetY     : 0,
+    canvasElement : null
   }
 
   if (userProps) {
