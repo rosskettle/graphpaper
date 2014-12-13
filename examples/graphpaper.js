@@ -14,7 +14,8 @@ var Graphpaper = function(userProps) {
     majorCols   : 10,
     alpha       : 1,
     offsetX     : 0,
-    offsetY     : 0
+    offsetY     : 0,
+    canvasElement : null
   }
 
   if (userProps) {
@@ -23,9 +24,16 @@ var Graphpaper = function(userProps) {
         this._props[userProp] = userProps[userProp];
       }
     }
+
   }
 
-  this.element = this._createElement();
+  if (this._props.canvasElement === null)
+    this.element = this._createElement();
+  else
+    this.element = this._props.canvasElement;
+
+
+
   this._gl = this._getContext();
 
   this._initGL(this._quadVertices());
@@ -37,7 +45,7 @@ Graphpaper.prototype = {
 
   draw: function() {
     var gl = this._gl;
-    gl.clearColor(1, 1, 1, 1);
+    gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   },
