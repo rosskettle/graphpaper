@@ -25,7 +25,12 @@ var Graphpaper = function(userProps) {
     }
   }
 
-  this.element = this._createElement();
+  if (this._props.hasOwnProperty('canvasElement') {
+    this.element = this._props.canvasElement;
+  } else {
+    this.element = this._createElement();
+  }
+
   this._gl = this._getContext();
 
   this._initGL(this._quadVertices());
